@@ -13,7 +13,7 @@ class Car:
         return self.mileage // 100
 
     def engine(self):
-        return self.power * self.cylinder
+        carEngine = self.power * self.cylinder
 
 
 class Owner:
@@ -26,7 +26,7 @@ class Owner:
 
 class Track(Car):
     def __init__(self, length, width, height, wheel, year, mileage, power, cylinder):
-        super().__init__(wheel)
+        super().__init__(wheel, carEngine)
 
     def wheelCheck(self, wheel):
         if self.wheel == 0:
@@ -39,10 +39,14 @@ class Track(Car):
     def consumptionTrack(self, wheel):
         return self.wheel * 0,34 * 100
 
+    def updateEngine(self, carEngine):
+        self.carEngine = self.power // self.cylinder
+        return self.carEngine
+
 
 class PassengerCar(Car):
     def __init__(self, length, width, height, wheel, year, mileage):
-        super().__init__(wheel)
+        super().__init__(wheel, carEngine)
 
     def wheelCheckPass(self, wheel):
         if self.wheel == 0:
@@ -50,3 +54,7 @@ class PassengerCar(Car):
 
     def consumptionPass(self, wheel):
         return self.wheel * 0,34 * 100
+
+    def updatePassEngine(self, carEngine):
+        self.carEngine = self.power // 100 * self.cylinder
+        return self.carEngine
