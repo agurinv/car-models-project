@@ -7,8 +7,8 @@ class Car:
         self.year = year
         self.mileage = mileage
 
-    def consumption(self):
-        pass
+    def consumption(self, mileage):
+        return mileage // 100
 
 
 class Engine:
@@ -33,6 +33,9 @@ class Track(Car):
         if self.wheel == 0:
             raise Exception('A car cannot have 0 wheels!')
 
+    def trailer(self):
+        pass
+
 
 class PassengerCar(Car):
     def __init__(self, length, width, height, wheel, year, mileage):
@@ -43,4 +46,4 @@ class PassengerCar(Car):
             raise Exception('A car cannot have 0 wheels!')
 
     def motor(self):
-        pass 
+        pass
