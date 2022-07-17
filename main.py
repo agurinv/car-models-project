@@ -41,3 +41,6 @@ class PassengerCar(Car):
     def wheelCheckPass(self, wheel):
         if self.wheel == 0:
             raise Exception('A car cannot have 0 wheels!')
+
+    def motor(self):
+        pass 
