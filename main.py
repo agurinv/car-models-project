@@ -23,3 +23,21 @@ class Owner:
         self.age = age
         self.birthday = birthday
         self.number = number
+
+
+class Track(Car):
+    def __init__(self, length, width, height, wheel, year, mileage):
+        super().__init__(wheel)
+
+    def wheelCheck(self, wheel):
+        if self.wheel == 0:
+            raise Exception('A car cannot have 0 wheels!')
+
+
+class PassengerCar(Car):
+    def __init__(self, length, width, height, wheel, year, mileage):
+        super().__init__(wheel)
+
+    def wheelCheckPass(self, wheel):
+        if self.wheel == 0:
+            raise Exception('A car cannot have 0 wheels!')
