@@ -1,5 +1,7 @@
+import json
+
 class Car:
-    def __init__(self, length, width, height, wheel, year, mileage, power, cylinder):
+    def __init__(self, length, width, height, wheel, year, mileage, power, cylinder, carEngine = 0):
         self.length = length
         self.width = width
         self.height = height
@@ -8,12 +10,14 @@ class Car:
         self.mileage = mileage
         self.power = power
         self.cylinder = cylinder
+        self.carEngine = carEngine
 
     def consumption(self, mileage):
         return self.mileage // 100
 
     def engine(self):
-        carEngine = self.power * self.cylinder
+        self.carEngine = self.power * self.cylinder
+        return self.carEngine
 
 
 class Owner:
@@ -43,10 +47,15 @@ class Track(Car):
         self.carEngine = self.power // self.cylinder
         return self.carEngine
 
+my_car = Car(1, 2, 3, 8, 2006, 6000, 900, 200)
+print(my_car.consumption(6000))
+jsonCar = json.dumps(my_car.__dict__)
+print(jsonCar)
 
 class PassengerCar(Car):
-    def __init__(self, length, width, height, wheel, year, mileage):
-        super().__init__(wheel, carEngine)
+    def __init__(self, length, width, height, wheel, year, mileage, power, cylinder):
+        super().__init__(length, width, height, wheel, year, mileage, power, cylinder)
+        self.carEngine = my_car.engine()
 
     def wheelCheckPass(self, wheel):
         if self.wheel == 0:
@@ -58,3 +67,9 @@ class PassengerCar(Car):
     def updatePassEngine(self, carEngine):
         self.carEngine = self.power // 100 * self.cylinder
         return self.carEngine
+
+
+my_passcar = PassengerCar(3, 2, 1, 8, 1999, 2000, 900, 200)
+print(my_passcar.consumptionPass(8))
+jsonPassCar = json.dumps(my_passcar.__dict__)
+print(jsonPassCar)
