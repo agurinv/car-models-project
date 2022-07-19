@@ -1,4 +1,5 @@
 import json
+import os
 
 class Car:
     def __init__(self, length, width, height, wheel, year, mileage, power, cylinder, carEngine = 0):
@@ -73,3 +74,10 @@ my_passcar = PassengerCar(3, 2, 1, 8, 1999, 2000, 900, 200)
 print(my_passcar.consumptionPass(8))
 jsonPassCar = json.dumps(my_passcar.__dict__)
 print(jsonPassCar)
+
+#environment variables
+print("The keys and values of all environment variables:")
+for key in os.environ:
+    print(key, "=>", os.environ[key])
+
+print("The value of HOME is: ", os.environ["HOME"])
