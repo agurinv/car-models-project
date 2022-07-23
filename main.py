@@ -30,8 +30,8 @@ class Owner:
 
 
 class Track(Car):
-    def __init__(self, length, width, height, wheel, year, mileage, power, cylinder):
-        super().__init__(wheel, carEngine)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
     def wheelCheck(self, wheel):
         if self.wheel == 0:
@@ -54,8 +54,8 @@ jsonCar = json.dumps(my_car.__dict__)
 print(jsonCar)
 
 class PassengerCar(Car):
-    def __init__(self, length, width, height, wheel, year, mileage, power, cylinder):
-        super().__init__(length, width, height, wheel, year, mileage, power, cylinder)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.carEngine = my_car.engine()
 
     def wheelCheckPass(self, wheel):
