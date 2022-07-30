@@ -36,7 +36,7 @@ class Owner:
 class TrackCar(BaseCar):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.wheelCheck = wheel_check_instance.wheel_check_method()
+        self.wheelCheck = my_passcar.wheel_check_pass()
 
     def trailer(self, wheel):
         # The tractor itself has 4 wheels (Сам тягач имеет 4 колеса)
@@ -63,17 +63,15 @@ class PassengerCar(BaseCar):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.carEngine = my_car.engine()
-        self.wheelCheck = wheel_check_instance.wheel_check_method()
+        self.wheelCheck = my_passcar.wheel_check_pass()
 
     def wheel_check_pass(self):
         if self.wheel == 0:
             raise Exception('A car cannot have 0 wheels!')
 
-    @abstractmethod
     def consumption_pass(self) -> tuple[int, int]:
         return self.wheel * 0, 34 * 100
 
-    @abstractmethod
     def update_pass_engine(self) -> float:
         self.carEngine = self.power // 100 * self.cylinder
         return self.carEngine
@@ -98,9 +96,7 @@ class wheel_check(ABC):
     def __init__(self):
         pass
 
-    def wheel_check_method(self):
+    @abstractmethod
+    def wheel_check_pass(self):
         if self.wheel == 0:
             raise Exception('A car cannot have 0 wheels!')
-
-
-wheel_check_instance = wheel_check()
