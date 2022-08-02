@@ -8,3 +8,6 @@ print("Python keywords: ", keyword.kwlist)
 print(id(a))
 print(id(b))
 print(id(c))
+
+print(type(a))
+print(type(c))
