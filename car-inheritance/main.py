@@ -58,8 +58,16 @@ track_car.carEngine()
 
 track_car.updateEngine()
 
+class wheel_check(ABC):
+    def __init__(self):
+        pass
 
-class PassengerCar(BaseCar):
+    @abstractmethod
+    def wheel_check_pass(self):
+        pass
+
+
+class PassengerCar(BaseCar, wheel_check):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.carEngine = my_car.engine()
@@ -90,13 +98,3 @@ for key in os.environ:
 print("The value of HOME is: ", os.environ["HOME"])
 
 print("Some changes")
-
-
-class wheel_check(ABC):
-    def __init__(self):
-        pass
-
-    @abstractmethod
-    def wheel_check_pass(self):
-        if self.wheel == 0:
-            raise Exception('A car cannot have 0 wheels!')
