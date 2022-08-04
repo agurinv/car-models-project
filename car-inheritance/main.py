@@ -1,8 +1,12 @@
 import json
 import os
+from abc import ABC, abstractmethod
+from typing import Tuple
 
-class Car:
-    def __init__(self, length, width, height, wheel, year, mileage, power, cylinder, carEngine = 0):
+
+class BaseCar(ABC):
+    def __init__(self, length: int, width: int, height: int, wheel: int, year: int,
+                 mileage: float, power: float, amount_of_cylindres: int, car_engine: int = 0):
         self.length = length
         self.width = width
         self.height = height
@@ -10,15 +14,15 @@ class Car:
         self.year = year
         self.mileage = mileage
         self.power = power
-        self.cylinder = cylinder
-        self.carEngine = carEngine
+        self.cylinder = amount_of_cylindres
+        self.car_engine = car_engine
 
-    def consumption(self, mileage):
-        return self.mileage // 100
+    def consumption(self) -> float:
+        return self.mileage * self.engine() // 100
 
-    def engine(self):
-        self.carEngine = self.power * self.cylinder
-        return self.carEngine
+    @abstractmethod
+    def engine(self) -> float:
+        pass
 
 
 class Owner:
@@ -29,43 +33,54 @@ class Owner:
         self.number = number
 
 
-class Track(Car):
+class TrackCar(BaseCar):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
-    def wheelCheck(self, wheel):
-        if self.wheel == 0:
-            raise Exception('A car cannot have 0 wheels!')
+        self.wheelCheck = my_passcar.wheel_check_pass()
 
     def trailer(self, wheel):
-        #The tractor itself has 4 wheels (Сам тягач имеет 4 колеса)
+        # The tractor itself has 4 wheels (Сам тягач имеет 4 колеса)
         return self.wheel - 4
 
-    def consumptionTrack(self, wheel):
-        return self.wheel * 0,34 * 100
-
-    def updateEngine(self, carEngine):
+    def engine(self) -> float:
         self.carEngine = self.power // self.cylinder
         return self.carEngine
 
-my_car = Car(1, 2, 3, 8, 2006, 6000, 900, 200)
-print(my_car.consumption(6000))
+
+my_car = TrackCar(1, 2, 3, 8, 2006, 6000, 900, 200)
+print(my_car.consumption())
 jsonCar = json.dumps(my_car.__dict__)
 print(jsonCar)
 
-class PassengerCar(Car):
+track_car = TrackCar(1, 2, 3, 8, 2006, 6000, 900, 200)
+
+track_car.carEngine()
+
+track_car.updateEngine()
+
+class wheel_check(ABC):
+    def __init__(self):
+        pass
+
+    @abstractmethod
+    def wheel_check_pass(self):
+        pass
+
+
+class PassengerCar(BaseCar, wheel_check):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.carEngine = my_car.engine()
+        self.wheelCheck = my_passcar.wheel_check_pass()
 
-    def wheelCheckPass(self, wheel):
+    def wheel_check_pass(self):
         if self.wheel == 0:
             raise Exception('A car cannot have 0 wheels!')
 
-    def consumptionPass(self, wheel):
-        return self.wheel * 0,34 * 100
+    def consumption_pass(self) -> tuple[int, int]:
+        return self.wheel * 0, 34 * 100
 
-    def updatePassEngine(self, carEngine):
+    def update_pass_engine(self) -> float:
         self.carEngine = self.power // 100 * self.cylinder
         return self.carEngine
 
@@ -75,9 +90,11 @@ print(my_passcar.consumptionPass(8))
 jsonPassCar = json.dumps(my_passcar.__dict__)
 print(jsonPassCar)
 
-#environment variables
+# environment variables
 print("The keys and values of all environment variables:")
 for key in os.environ:
     print(key, "=>", os.environ[key])
 
 print("The value of HOME is: ", os.environ["HOME"])
+
+print("Some changes")
